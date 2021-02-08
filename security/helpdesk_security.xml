@@ -42,7 +42,24 @@
     <record id="helpesk_ticket_personal_rule" model="ir.rule">
         <field name="name">Personal Tickets Plataforma</field>
         <field ref="model_helpdesk_ticket" name="model_id"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="0" />
         <field name="domain_force">['|',('user_id','=',user.id),('user_id','=',False)]</field>
+        <field name="groups" eval="[(4, ref('group_helpdesk_user'))]"/>
+    </record>
+
+
+    <!--PERFIL ASIGNACION DE TICKET-->
+    <record id="helpesk_ticket_personal_seguidor" model="ir.rule">
+        <field name="name">Personal Tickets Plataforma Seguidor</field>
+        <field ref="model_helpdesk_ticket" name="model_id"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="0" />
+        <field name="domain_force">['|',('seguidores_ids.user_id','=',user.id),('seguidores_ids.user_id','=',False)]</field>
         <field name="groups" eval="[(4, ref('group_helpdesk_user'))]"/>
     </record>
     
@@ -53,6 +70,8 @@
         <field name="domain_force">[(1,'=',1)]</field>
         <field name="groups" eval="[(4, ref('group_helpdesk_manager'))]"/>
     </record>
+
+
     
     <!-- Company Rules -->
     <record id="helpdesk_ticket_comp_rule" model="ir.rule">

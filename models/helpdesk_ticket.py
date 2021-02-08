@@ -49,6 +49,10 @@ class HelpdeskTicket(models.Model):
     partner_name = fields.Char()
     partner_email = fields.Char()
 
+
+    employee_name = fields.Char()
+    employee_email = fields.Char()
+
     last_stage_update = fields.Datetime(
         string='Last Stage Update',
         default=fields.Datetime.now,
@@ -225,6 +229,14 @@ class HelpdeskTicket(models.Model):
             self.partner_name = self.partner_id.name
             self.partner_email = self.partner_id.email
 
+
+    @api.onchange('employee_id')
+    def _onchange_employee_id(self):
+        if self.employee_id:
+            self.employee_name = self.employee_id.name
+            self.employee_email = self.employee_id.email
+
+
     @api.multi
     @api.onchange('team_id', 'user_id')
     def _onchange_dominion_user_id(self):
@@ -250,11 +262,11 @@ class HelpdeskTicket(models.Model):
         if vals.get('number', '/') == '/':
             vals["number"] = self._prepare_ticket_number(vals)
 
-
-        if vals.get("partner_id") and ("partner_name" not in vals or "partner_email" not in vals):
-            partner = self.env["res.partner"].browse(vals["partner_id"])
-            vals.setdefault("partner_name", partner.name)
-            vals.setdefault("partner_email", partner.email)
+        
+        if vals.get("employee_id") and ("employee_name" not in vals or "employee_email" not in vals):
+            partner = self.env["res.users"].browse(vals["employee_id"])
+            vals.setdefault("employee_name", partner.name)
+            vals.setdefault("employee_email", partner.email)
 
         if self.env.context.get('fetchmail_cron_running') and not vals.get('channel_id'):
             vals['channel_id'] = self.env.ref('helpdesk_mgmt.helpdesk_ticket_channel_email').id

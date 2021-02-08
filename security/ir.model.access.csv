@@ -43,4 +43,4 @@ access_helpdesk_ticket_manager_sla11,helpdesk.website_website_support_sla_rule,m
 access_helpdesk_ticket_manager_sla12,helpdesk.website_support_sla_alert,model_website_support_sla_alert,group_helpdesk_user,1,1,1,1
 
 access_helpdesk_ticket_manager_sla13,helpdesk.helpdesk.ticket.sitio,model_helpdesk_ticket_sitio,group_helpdesk_manager,1,1,1,1
-access_helpdesk_ticket_manager_sla14,helpdesk.helpdesk.ticket.sitio,model_helpdesk_ticket_sitio,group_helpdesk_user,1,0,0,0
+access_helpdesk_ticket_manager_sla14,helpdesk.helpdesk.ticket.sitio,model_helpdesk_ticket_sitio,group_helpdesk_user,1,1,1,1
